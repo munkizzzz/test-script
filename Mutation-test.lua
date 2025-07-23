@@ -158,4 +158,4 @@ credit.BackgroundTransparency = 1
 credit.Font = Enum.Font.GothamBold
 credit.TextSize = 12
 credit.TextColor3 = Color3.fromRGB(255, 0, 0)
-credit.Text = a1..a2..a3..b1..b2..b3..b4..b5..b6..c1..c2..c3..c4…c5..c6..d1..d2..d3..d4..d5..d6
+credit.Text = a1..a2..a3..b1..b2..b3..b4..b5..b6..c1..c2..c3..c4..c5..c6..d1..d2..d3..d4..d5..d6
