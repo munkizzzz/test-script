@@ -366,6 +366,7 @@ mutationBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 mutationBtn.MouseButton1Click:Connect(function()
  -- Put your Pet Mutation Loader Here loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Mutation-test.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Mutation-test.lua"))()
 end)
 
 local b4, b5, b6 = "i", "z", "z"
