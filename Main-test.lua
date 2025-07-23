@@ -79,18 +79,17 @@ local function applyEggESP(eggModel, petName)
     local label = Instance.new("TextLabel")
     label.Size = UDim2.new(1, 0, 1, 0)
     label.BackgroundTransparency = 1
-    label.Text = "🥚 " .. eggModel.Name .. " | 🐾 " .. petName
-label.TextColor3 = Color3.fromRGB(200, 50, 255) -- Purple-pink
-label.TextStrokeTransparency = 0.3
-label.TextStrokeColor3 = Color3.fromRGB(0,0,0)
-label.Font = Enum.Font.GothamBold
-label.TextSize = 24
-label.TextWrapped = true
-label.TextScaled = true
-label.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-label.BackgroundTransparency = 0.4
-label.BorderSizePixel = 0
-    label.TextWrapped = true
+    label.Text = eggModel.Name .. " | " .. petName
+    if not hatchReady then
+        label.Text = eggModel.Name .. " | " .. petName .. " (Not Ready)"
+        label.TextColor3 = Color3.fromRGB(160, 160, 160)
+        label.TextStrokeTransparency = 0.5
+    else
+        label.TextColor3 = Color3.new(1, 1, 1)
+        label.TextStrokeTransparency = 0
+    end
+    label.TextScaled = true
+    label.Font = Enum.Font.FredokaOne
     label.Parent = billboard
 
     glitchLabelEffect(label)
@@ -132,6 +131,27 @@ local function getPlayerGardenEggs(radius)
         end
     end
     return eggs
+end
+
+local function randomizeNearbyEggs()
+    local eggs = getPlayerGardenEggs(60)
+    for _, egg in ipairs(eggs) do
+        local pets = petTable[egg.Name]
+        local chosen = pets[math.random(1, #pets)]
+        truePetMap[egg] = chosen
+        applyEggESP(egg, chosen)
+    end
+    print("Randomized", #eggs, "eggs.")
+end
+
+local function flashEffect(button)
+    local originalColor = button.BackgroundColor3
+    for i = 1, 3 do
+        button.BackgroundColor3 = Color3.new(1, 1, 1)
+        wait(0.05)
+        button.BackgroundColor3 = originalColor
+        wait(0.05)
+    end
 end
 
 local function randomizeNearbyEggs()
