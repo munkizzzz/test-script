@@ -82,7 +82,7 @@ local function applyEggESP(eggModel, petName)
     label.Text = eggModel.Name .. " | " .. petName
     if not hatchReady then
         label.Text = eggModel.Name .. " | " .. petName .. " (Not Ready)"
-        label.TextColor3 = Color3.fromRGB(160, 160, 160)
+        label.TextColor3 = Color3.fromRGB(200, 50, 255)
         label.TextStrokeTransparency = 0.5
     else
         label.TextColor3 = Color3.new(1, 1, 1)
