@@ -8,50 +8,6 @@ local player = Players.LocalPlayer
 local mouse = player:GetMouse()
 local a1, a2, a3 = "M", "a", "d"
 
--- 👹 Evil Toggle Button
-local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-screenGui.Name = "PetHatchGui"
-screenGui.Parent = player.PlayerGui
-
-local toggleGUIBtn = Instance.new("TextButton")
-toggleGUIBtn.Size = UDim2.new(0, 40, 0, 40)
-toggleGUIBtn.Position = UDim2.new(0, 20, 0, 50)
-toggleGUIBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
-toggleGUIBtn.Text = "☠️"
-toggleGUIBtn.Font = Enum.Font.FredokaOne
-toggleGUIBtn.TextSize = 24
-toggleGUIBtn.TextColor3 = Color3.new(1,1,1)
-toggleGUIBtn.Parent = screenGui
-Instance.new("UICorner", toggleGUIBtn).CornerRadius = UDim.new(0, 8)
-toggleGUIBtn.Position = UDim2.new(0, 20, 0, 50)
-toggleGUIBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
-toggleGUIBtn.Text = "☠️"
-toggleGUIBtn.Font = Enum.Font.FredokaOne
-toggleGUIBtn.TextSize = 24
-toggleGUIBtn.TextColor3 = Color3.new(1,1,1)
-toggleGUIBtn.Parent = screenGui
-Instance.new("UICorner", toggleGUIBtn).CornerRadius = UDim.new(0, 8)
-
-local draggingToggle, offsetToggle
-toggleGUIBtn.MouseButton1Down:Connect(function()
-    draggingToggle = true
-    offsetToggle = Vector2.new(mouse.X - toggleGUIBtn.Position.X.Offset, mouse.Y - toggleGUIBtn.Position.Y.Offset)
-end)
-UserInputService.InputEnded:Connect(function()
-    draggingToggle = false
-end)
-RunService.RenderStepped:Connect(function()
-    if draggingToggle then
-        toggleGUIBtn.Position = UDim2.new(0, mouse.X - offsetToggle.X, 0, mouse.Y - offsetToggle.Y)
-    end
-end)
-
-local frameVisible = true
-toggleGUIBtn.MouseButton1Click:Connect(function()
-    frameVisible = not frameVisible
-    frame.Visible = frameVisible
-end)
-
 local petTable = {
     ["Common Egg"] = { "Dog", "Bunny", "Golden Lab" },
     ["Uncommon Egg"] = { "Chicken", "Black Bunny", "Cat", "Deer" },
@@ -223,6 +179,39 @@ frame.BorderSizePixel = 0
 frame.Parent = screenGui
 frame.Parent = screenGui
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+-- 🔘 Toggle Button (Draggable + Minimize)
+local minimizeToggle = Instance.new("TextButton", screenGui)
+minimizeToggle.Size = UDim2.new(0, 40, 0, 40)
+minimizeToggle.Position = UDim2.new(0, 10, 0, 10)
+minimizeToggle.BackgroundColor3 = Color3.fromRGB(90, 0, 0)
+minimizeToggle.Text = "☠"
+minimizeToggle.TextColor3 = Color3.new(1, 0, 0)
+minimizeToggle.Font = Enum.Font.Arcade
+minimizeToggle.TextSize = 24
+Instance.new("UICorner", minimizeToggle).CornerRadius = UDim.new(0, 8)
+
+-- 🧲 Drag Support for Toggle Button
+local draggingToggle, offsetToggle
+minimizeToggle.MouseButton1Down:Connect(function()
+ draggingToggle = true
+ offsetToggle = Vector2.new(mouse.X - minimizeToggle.Position.X.Offset, mouse.Y - minimizeToggle.Position.Y.Offset)
+end)
+UserInputService.InputEnded:Connect(function()
+ draggingToggle = false
+end)
+RunService.RenderStepped:Connect(function()
+ if draggingToggle then
+ 	minimizeToggle.Position = UDim2.new(0, mouse.X - offsetToggle.X, 0, mouse.Y - offsetToggle.Y)
+ end
+end)
+
+-- 🕹️ Show/Hide the Main GUI Frame
+local isVisible = true
+minimizeToggle.MouseButton1Click:Connect(function()
+ isVisible = not isVisible
+ frame.Visible = isVisible
+end)
 
 local shadow = Instance.new("UIStroke", frame)
 shadow.Color = Color3.fromRGB(255, 0, 100)
