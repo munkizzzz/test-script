@@ -350,8 +350,76 @@ loadAgeBtn.Font = Enum.Font.FredokaOne
 loadAgeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 loadAgeBtn.MouseButton1Click:Connect(function()
- -- Put your Lvl 50 Pet Age Loader Here
+    -- Evil Loading UI
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    local RunService = game:GetService("RunService")
+    local player = Players.LocalPlayer
 
+    local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    screenGui.Name = "AgeLoader"
+
+    local loadingFrame = Instance.new("Frame", screenGui)
+    loadingFrame.Size = UDim2.new(0, 400, 0, 120)
+    loadingFrame.Position = UDim2.new(0.5, -200, 0.5, -60)
+    loadingFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 40)
+    loadingFrame.BorderSizePixel = 0
+    Instance.new("UICorner", loadingFrame).CornerRadius = UDim.new(0, 20)
+
+    local mainLabel = Instance.new("TextLabel", loadingFrame)
+    mainLabel.Size = UDim2.new(1, 0, 0.5, 0)
+    mainLabel.Position = UDim2.new(0, 0, 0, 0)
+    mainLabel.Text = "🕷️ Loading Pet Age to 50..."
+    mainLabel.Font = Enum.Font.Arcade
+    mainLabel.TextColor3 = Color3.fromRGB(255, 200, 50)
+    mainLabel.TextStrokeTransparency = 0
+    mainLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+    mainLabel.TextScaled = true
+    mainLabel.BackgroundTransparency = 1
+
+    local progressBarBG = Instance.new("Frame", loadingFrame)
+    progressBarBG.Size = UDim2.new(0.9, 0, 0.2, 0)
+    progressBarBG.Position = UDim2.new(0.05, 0, 0.6, 0)
+    progressBarBG.BackgroundColor3 = Color3.fromRGB(30, 30, 60)
+    progressBarBG.BorderSizePixel = 0
+    Instance.new("UICorner", progressBarBG).CornerRadius = UDim.new(0, 6)
+
+    local progressBar = Instance.new("Frame", progressBarBG)
+    progressBar.Size = UDim2.new(0, 0, 1, 0)
+    progressBar.BackgroundColor3 = Color3.fromRGB(255, 200, 0)
+    progressBar.BorderSizePixel = 0
+    Instance.new("UICorner", progressBar).CornerRadius = UDim.new(0, 6)
+
+    local pulseConnection
+    pulseConnection = RunService.RenderStepped:Connect(function()
+        local time = tick()
+        local pulse = (math.sin(time * 5) + 1) / 2
+        progressBar.BackgroundColor3 = Color3.fromRGB(255, 150 + pulse * 80, 0)
+    end)
+
+    local tween = TweenService:Create(progressBar, TweenInfo.new(10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Size = UDim2.new(1, 0, 1, 0)
+    })
+    tween:Play()
+
+    tween.Completed:Connect(function()
+        pulseConnection:Disconnect()
+        mainLabel.Text = "✅ Pet Age Loaded"
+        mainLabel.TextColor3 = Color3.fromRGB(0, 255, 100)
+
+        wait(1)
+
+        local fadeTween = TweenService:Create(loadingFrame, TweenInfo.new(1), {
+            BackgroundTransparency = 1
+        })
+        fadeTween:Play()
+
+        fadeTween.Completed:Connect(function()
+            screenGui:Destroy()
+            -- Your working pet age script here 👇
+           loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Age-50.lua"))()
+        end)
+    end)
 end)
 
 -- 💀 Pet Mutation Finder Button
@@ -365,8 +433,85 @@ mutationBtn.Font = Enum.Font.FredokaOne
 mutationBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 mutationBtn.MouseButton1Click:Connect(function()
- -- Put your Pet Mutation Loader Here loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Mutation-test.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Mutation-test.lua"))()
+
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    local RunService = game:GetService("RunService")
+    local player = Players.LocalPlayer
+
+    -- ScreenGui
+    local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    screenGui.Name = "MutationLoader"
+
+    -- Main Frame
+    local loadingFrame = Instance.new("Frame", screenGui)
+    loadingFrame.Size = UDim2.new(0, 400, 0, 120)
+    loadingFrame.Position = UDim2.new(0.5, -200, 0.5, -60)
+    loadingFrame.BackgroundColor3 = Color3.fromRGB(15, 0, 0)
+    loadingFrame.BorderSizePixel = 0
+    Instance.new("UICorner", loadingFrame).CornerRadius = UDim.new(0, 20)
+
+    -- Mutation Loading Label
+    local mainLabel = Instance.new("TextLabel", loadingFrame)
+    mainLabel.Size = UDim2.new(1, 0, 0.5, 0)
+    mainLabel.Position = UDim2.new(0, 0, 0, 0)
+    mainLabel.Text = "🧬 Mutation Finder Loading... 🧬"
+    mainLabel.Font = Enum.Font.Arcade
+    mainLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+    mainLabel.TextStrokeTransparency = 0
+    mainLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+    mainLabel.TextScaled = true
+    mainLabel.BackgroundTransparency = 1
+
+    -- Progress Bar Background
+    local progressBarBG = Instance.new("Frame", loadingFrame)
+    progressBarBG.Size = UDim2.new(0.9, 0, 0.2, 0)
+    progressBarBG.Position = UDim2.new(0.05, 0, 0.6, 0)
+    progressBarBG.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+    progressBarBG.BorderSizePixel = 0
+    Instance.new("UICorner", progressBarBG).CornerRadius = UDim.new(0, 6)
+
+    -- Progress Bar Fill
+    local progressBar = Instance.new("Frame", progressBarBG)
+    progressBar.Size = UDim2.new(0, 0, 1, 0)
+    progressBar.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+    progressBar.BorderSizePixel = 0
+    Instance.new("UICorner", progressBar).CornerRadius = UDim.new(0, 6)
+
+    -- Evil Pulsing Effect
+    local pulseConnection
+    pulseConnection = RunService.RenderStepped:Connect(function()
+        local time = tick()
+        local pulse = (math.sin(time * 4) + 1) / 2
+        progressBar.BackgroundColor3 = Color3.fromRGB(200, 0 + pulse * 55, 0 + pulse * 55)
+    end)
+
+    -- Animate Loading
+    local tween = TweenService:Create(progressBar, TweenInfo.new(10, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Size = UDim2.new(1, 0, 1, 0)
+    })
+    tween:Play()
+
+    -- After loading
+    tween.Completed:Connect(function()
+        pulseConnection:Disconnect()
+        mainLabel.Text = "✅ Mutation System Loaded"
+        mainLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+
+        wait(1)
+
+        local fadeTween = TweenService:Create(loadingFrame, TweenInfo.new(1), {
+            BackgroundTransparency = 1
+        })
+        fadeTween:Play()
+
+        fadeTween.Completed:Connect(function()
+            screenGui:Destroy()
+            -- ✅ Correct loadstring goes here
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Mutation-test.lua"))()
+        end)
+    end)
+
 end)
 
 local b4, b5, b6 = "i", "z", "z"
