@@ -79,6 +79,6 @@ tween.Completed:Connect(function()
     fadeTween.Completed:Connect(function()
         screenGui:Destroy()
         -- 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/test-script/refs/heads/main/Main-test.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/munkizzzz/x/refs/heads/main/Egg-RandomizerV4.lua"))()
     end)
 end)
